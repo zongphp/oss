@@ -1,0 +1,21 @@
+{
+  "name": "zongphp/oss",
+  "description": "简单、安全的操作阿里云OSS的功能",
+  "type": "project",
+  "keywords": [
+    "oss",
+  ],
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.4.0",
+    "aliyuncs/oss-sdk-php": "~2.0",
+    "zongphp/config": "~1.0"
+  },
+  "autoload": {
+    "files": [],
+    "psr-4": {
+      "zongphp\\oss\\": "src"
+    }
+  }
+}
