@@ -6,7 +6,7 @@
     "oss",
   ],
   "license": "MIT",
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "require": {
     "php": ">=5.4.0",
     "aliyuncs/oss-sdk-php": "~2.0",
