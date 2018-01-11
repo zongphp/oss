@@ -3,35 +3,57 @@ namespace zongphp\oss;
 
 use zongphp\oss\build\Base;
 
-class Oss {
-	protected $link = null;
+/**
+ * Class Oss
+ *
+ * @package zongphp\oss
+ */
+class Oss
+{
+    /**
+     * 驱动
+     *
+     * @var null
+     */
+    protected static $link = null;
 
-	//驱动
-	public function driver() {
-		$this->link = new Base();
+    /**
+     * 获取驱动
+     *
+     * @return \zongphp\oss\build\Base|null
+     */
+    public static function single()
+    {
+        if ( ! self::$link) {
+            self::$link = new Base();
+        }
 
-		return $this;
-	}
+        return self::$link;
+    }
 
-	public function __call( $method, $params ) {
-		if ( is_null( $this->link ) ) {
-			$this->driver();
-		}
+    /**
+     * 对象调用
+     *
+     * @param $method
+     * @param $params
+     *
+     * @return mixed
+     */
+    public function __call($method, $params)
+    {
+        return call_user_func_array([self::single(), $method], $params);
+    }
 
-		return call_user_func_array( [ $this->link, $method ], $params );
-	}
-
-	//生成单例对象
-	public static function single() {
-		static $link;
-		if ( is_null( $link ) ) {
-			$link = new static();
-		}
-
-		return $link;
-	}
-
-	public static function __callStatic( $name, $arguments ) {
-		return call_user_func_array( [ static::single(), $name ], $arguments );
-	}
+    /**
+     * 静态调用
+     *
+     * @param $name
+     * @param $arguments
+     *
+     * @return mixed
+     */
+    public static function __callStatic($name, $arguments)
+    {
+        return call_user_func_array([self::single(), $name], $arguments);
+    }
 }
